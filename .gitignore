@@ -1,0 +1,35 @@
+# macOS files
+.DS_Store
+Thumbs.db
+
+# eclipse files
+.classpath
+.project
+.settings
+.springBeans
+*.launch
+.factorypath
+.apt_generated
+.sts4-cache
+
+# idea files
+.idea
+*.ipr
+*.iml
+
+# maven target dir
+target
+
+# test output dir
+test-output
+
+# maven version backups
+*.versionsBackup
+.flattened-pom.xml
+
+# dependencies
+node_modules
+node
+
+# VM ignores
+.theia/*
