@@ -40,4 +40,15 @@ public class CurrencyConversionController
         assert currencyConversionEntity != null;
         return new CurrencyConversionEntity(currencyConversionEntity.getId(), from, to, quantity, currencyConversionEntity.getConversionMultiple(), quantity.multiply(currencyConversionEntity.getConversionMultiple()), currencyConversionEntity.getEnvironment());
     }
+
+    @GetMapping("/feign/from/{from}/to/{to}/quantity/{quantity}")
+    public CurrencyConversionEntity calculateCurrencyConversionFeign(
+            @PathVariable("from") String from,
+            @PathVariable("to") String to,
+            @PathVariable("quantity") BigDecimal quantity
+    )
+    {
+        CurrencyConversionEntity currencyConversionEntity = currencyExchangeClient.retrieveExchangeValue(from, to);
+        return new CurrencyConversionEntity(currencyConversionEntity.getId(), from, to, quantity, currencyConversionEntity.getConversionMultiple(), quantity.multiply(currencyConversionEntity.getConversionMultiple()), currencyConversionEntity.getEnvironment());
+    }
 }
