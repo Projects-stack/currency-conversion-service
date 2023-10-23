@@ -23,6 +23,9 @@ public class CurrencyConversionController
     @Autowired
     private CurrencyExchangeClient currencyExchangeClient;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @GetMapping("/from/{from}/to/{to}/quantity/{quantity}")
     public CurrencyConversionEntity calculateCurrencyConversion(
             @PathVariable("from") String from,
@@ -34,7 +37,7 @@ public class CurrencyConversionController
         uriVariables.put("from", from);
         uriVariables.put("to", to);
 
-        ResponseEntity<CurrencyConversionEntity> responseEntity = new RestTemplate().getForEntity("http://localhost:8000/api/currency-exchange/from/{from}/to/{to}", CurrencyConversionEntity.class,
+        ResponseEntity<CurrencyConversionEntity> responseEntity = restTemplate.getForEntity("http://localhost:8000/api/currency-exchange/from/{from}/to/{to}", CurrencyConversionEntity.class,
                 uriVariables);
         CurrencyConversionEntity currencyConversionEntity = responseEntity.getBody();
         assert currencyConversionEntity != null;
