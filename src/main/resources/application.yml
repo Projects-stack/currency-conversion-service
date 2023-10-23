@@ -7,6 +7,12 @@ spring:
   application:
     name: "currency-conversion"
 
+  # zipkin
+  zipkin:
+    sender:
+      type: "web"
+    baseUrl: "http://localhost:9411"
+
   # config-server
   config:
     import: "optional:configserver:http://localhost:8888"
@@ -16,3 +22,14 @@ eureka:
   client:
     serviceUrl:
       defaultZone: "http://localhost:8761/eureka"
+
+# zipkin config
+management:
+  tracing:
+    sampling:
+      probability: "1.0"
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+
